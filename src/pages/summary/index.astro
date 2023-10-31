@@ -2,7 +2,8 @@
 import BaseHead from '../../components/BaseHead.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../constants'
 import { getCollection } from 'astro:content'
-import Header from '../../components/Header/Header'
+import Navbar from '../../components/Navbar'
+import { ViewTransitions } from 'astro:transitions'
 
 const posts = (await getCollection('summary')).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
 ---
@@ -11,12 +12,13 @@ const posts = (await getCollection('summary')).sort((a, b) => a.data.pubDate.val
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ViewTransitions />
     <style lang="scss">
       li {
         list-style-type: none;
         margin: 0;
       }
-      
+
       a {
         text-decoration: none;
         display: flex;
@@ -36,7 +38,9 @@ const posts = (await getCollection('summary')).sort((a, b) => a.data.pubDate.val
   </head>
 
   <body>
-    <Header />
+    <div transition:name="nav">
+      <Navbar />
+    </div>
     <main>
       <section>
         <ul>

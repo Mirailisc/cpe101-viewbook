@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header/Header'
+import SummaryNav from '../components/SummaryNav'
+import { ViewTransitions } from 'astro:transitions'
 
 type Props = CollectionEntry<'summary'>['data']
 
@@ -11,6 +12,7 @@ const { title, description, pubDate } = Astro.props
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+    <ViewTransitions />
     <style lang="scss">
       .title {
         margin-bottom: 20px;
@@ -21,7 +23,9 @@ const { title, description, pubDate } = Astro.props
       }
     </style>
     <style is:inline>
-      h2,h3,h4 {
+      h2,
+      h3,
+      h4 {
         margin-top: 20px;
       }
 
@@ -34,7 +38,9 @@ const { title, description, pubDate } = Astro.props
 
   <body>
     <main>
-      <Header />
+      <div transition:name="nav">
+        <SummaryNav />
+      </div>
       <article>
         <div class="prose">
           <div class="title">
