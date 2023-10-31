@@ -1,0 +1,59 @@
+---
+import BaseHead from '../../components/BaseHead.astro'
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../constants'
+import { getCollection } from 'astro:content'
+import Header from '../../components/Header/Header'
+
+const posts = (await getCollection('summary')).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style lang="scss">
+      li {
+        list-style-type: none;
+        margin: 0;
+      }
+      
+      a {
+        text-decoration: none;
+        display: flex;
+        gap: 20px;
+        color: #636363;
+
+        h4 {
+          transition: all 300ms;
+          font-weight: 500;
+        }
+
+        &:hover {
+          color: #ffffff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map((post: any) => (
+              <li>
+                <a href={`/summary/${post.slug}/`}>
+                  <h4 class="date">[{post.data.pubDate}]</h4>
+                  <h4 class="title">
+                    {post.data.title} - {post.data.description}
+                  </h4>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

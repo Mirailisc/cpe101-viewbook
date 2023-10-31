@@ -1,0 +1,49 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header/Header'
+
+type Props = CollectionEntry<'summary'>['data']
+
+const { title, description, pubDate } = Astro.props
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <style lang="scss">
+      .title {
+        margin-bottom: 20px;
+
+        .date {
+          color: #c0c0c0;
+        }
+      }
+    </style>
+    <style is:inline>
+      h2,h3,h4 {
+        margin-top: 20px;
+      }
+
+      p {
+        font-size: 16px;
+        font-weight: 300;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <Header />
+      <article>
+        <div class="prose">
+          <div class="title">
+            <div class="date">{pubDate}</div>
+            <h1>{title} - {description}</h1>
+          </div>
+          <slot class="content" />
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    backdrop-filter: blur(4px);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    .navlinks {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        a {
+            text-decoration: none;
+            color: #636363;
+    
+            &:hover {
+              color: #ffffff;
+            }
+          }
+    }
+
+    @media screen and (max-width: 450px) {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+}
