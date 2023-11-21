@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../constants'
 import Navbar from '../components/Navbar'
 import { ViewTransitions } from 'astro:transitions'
+const contents = await Astro.glob('../content/summary/*.md')
 ---
 
 <!doctype html>
@@ -11,6 +12,25 @@ import { ViewTransitions } from 'astro:transitions'
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <ViewTransitions />
     <style>
+      .members {
+        margin-bottom: 2rem;
+      }
+
+      .contents {
+        margin-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+      }
+
+      .title {
+        margin-bottom: 20px;
+
+        .date {
+          color: #c0c0c0;
+        }
+      }
+
       li {
         list-style-type: none;
         margin: 0;
@@ -18,6 +38,24 @@ import { ViewTransitions } from 'astro:transitions'
 
       p {
         margin-block: 1rem;
+      }
+
+      @media screen and (max-width: 500px) {
+        h1 {
+          font-size: 25px;
+        }
+      }
+    </style>
+    <style is:inline>
+      h2,
+      h3,
+      h4 {
+        margin-top: 20px;
+      }
+
+      p {
+        font-size: 16px;
+        font-weight: 300;
       }
     </style>
   </head>
@@ -27,21 +65,31 @@ import { ViewTransitions } from 'astro:transitions'
       <Navbar />
     </div>
     <main>
-      <h1>Engineering Exploration</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p>
-      <h3>สมาชิก</h3>
-      <ul>
-        <li>ภูบดินทร์ พูลหน่าย 66070501040</li>
-        <li>ธรรมภณ แฉ่งพาที 66070501076</li>
-        <li>ณัฐชนน ศรีศิริ 66070501016</li>
-        <li>ธิติ ติยะชัยพานิช 66070501026</li>
-      </ul>
+      <h1>Engineering Exploration Viewbook</h1>
+      <div class="members">
+        <h3>สมาชิก</h3>
+        <ul>
+          <li>ภูบดินทร์ พูลหน่าย 66070501040</li>
+          <li>ธรรมภณ แฉ่งพาที 66070501076</li>
+          <li>ณัฐชนน ศรีศิริ 66070501016</li>
+          <li>ธิติ ติยะชัยพานิช 66070501026</li>
+        </ul>
+      </div>
+      <div class="contents">
+        {
+          contents.map((content) => (
+            <div>
+              <div class="title">
+                <div class="date">{content.frontmatter.pubDate}</div>
+                <h1>
+                  {content.frontmatter.title} - {content.frontmatter.description}
+                </h1>
+              </div>
+              <content.Content />
+            </div>
+          ))
+        }
+      </div>
     </main>
   </body>
 </html>
