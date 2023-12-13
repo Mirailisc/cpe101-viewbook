@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content'
 import Navbar from '../../components/Navbar'
 import { ViewTransitions } from 'astro:transitions'
 
-const posts = (await getCollection('summary')).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+const posts = await getCollection('summary')
 ---
 
 <!doctype html>
@@ -14,7 +14,6 @@ const posts = (await getCollection('summary')).sort((a, b) => a.data.pubDate.val
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <ViewTransitions />
     <style lang="scss">
-
       li {
         list-style-type: none;
         margin: 0;
