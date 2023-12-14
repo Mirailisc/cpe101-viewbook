@@ -3,7 +3,13 @@ import BaseHead from '../components/BaseHead.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../constants'
 import Navbar from '../components/Navbar'
 import { ViewTransitions } from 'astro:transitions'
-const contents = await Astro.glob('../content/summary/*.md')
+import Banner from '../components/Banner'
+import Courses from '../components/Courses'
+import banner from '../images/banner.jpg?url'
+import final from '../images/final.jpg?url'
+import midterm from '../images/midterm.png?url'
+import Footer from '../components/Footer'
+
 ---
 
 <!doctype html>
@@ -40,6 +46,21 @@ const contents = await Astro.glob('../content/summary/*.md')
         margin-block: 1rem;
       }
 
+      button {
+        color: #ffffff;
+        background-color: #222222;
+        border: 0;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: all 300ms;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #2e2e2e;
+        }
+      }
+
       @media screen and (max-width: 500px) {
         h1 {
           font-size: 25px;
@@ -65,31 +86,54 @@ const contents = await Astro.glob('../content/summary/*.md')
       <Navbar />
     </div>
     <main>
-      <h1>Engineering Exploration Viewbook</h1>
+      <Banner image={banner} />
       <div class="members">
         <h3>สมาชิก</h3>
         <ul>
-          <li>ภูบดินทร์ พูลหน่าย 66070501040</li>
-          <li>ธรรมภณ แฉ่งพาที 66070501076</li>
           <li>ณัฐชนน ศรีศิริ 66070501016</li>
           <li>ธิติ ติยะชัยพานิช 66070501026</li>
+          <li>ภูบดินทร์ พูลหน่าย 66070501040</li>
+          <li>ธรรมภณ แฉ่งพาที 66070501076</li>
         </ul>
       </div>
-      <div class="contents">
-        {
-          contents.map((content) => (
-            <div>
-              <div class="title">
-                <div class="date">{content.frontmatter.pubDate}</div>
-                <h1>
-                  {content.frontmatter.title} - {content.frontmatter.description}
-                </h1>
-              </div>
-              <content.Content />
-            </div>
-          ))
-        }
+      <div style="color: #000000; background: #FFFFFF; padding: 5px 20px; border-radius: 10px">
+        <h2>What's this course?</h2>
+        <p>
+          Engineering Exploration (CPE101) เป็นหลักสูตรที่เปิดสอนโดยคณะวิศวกรรมศาสตร์
+          มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีหลักสูตรนี้ออกแบบมาเพื่อแนะนำนักศึกษาเกี่ยวกับสาขาวิศวกรรมศาสตร์และสาขาวิชาต่างๆ
+          โดยครอบคลุมหัวข้อต่างๆ เช่น การแก้ปัญหา การคิดเชิงวิพากษ์ และการทำงานเป็นทีม
+          และมีเป้าหมายเพื่อพัฒนาทักษะของนักเรียนในด้านเหล่านี้ หลักสูตรนี้เน้นโครงงาน
+          และนักศึกษาจะทำงานเป็นทีมเพื่อทำโครงงานวิศวกรรมต่างๆ ให้สำเร็จตลอดภาคการศึกษา
+        </p>
       </div>
+      <h2>
+        Engineering Exploration @ <a href="https://kmutt.ac.th" style="text-decoration: none"
+          ><span style="color: #FA4616">KMUTT</span></a
+        > You will learn 🤔
+      </h2>
+      <Courses />
+      <div style="text-align: center; margin-block: 20px;">
+        <a href="/summary" style="text-decoration: none;"><button>ดูรายละเอียดเพิ่มเติม</button></a>
+      </div>
+      <h2>🚀 Challenging project</h2>
+      <Banner image={midterm} />
+      <h3>[Midterm] House Keeping Robot</h3>
+      <p>
+        หุ่นยนต์เก็บลูกบอลตามสีด้วย Huskylens และ micro:bit โดยนำสีบอลสีน้ำเงิน ไปวางในโซนสีน้ำเงิน บอลสีแดง
+        ไปวางในโซนสีแดง
+      </p>
+      <div style="text-align: center; margin-block: 20px;">
+        <a href="/summary/9" style="text-decoration: none;"><button>ดูรายละเอียดเพิ่มเติม</button></a>
+      </div>
+      <hr />
+      <h2>⭐ Freestyle project</h2>
+      <Banner image={final} />
+      <h3>[Final] D&D mini Multiplayer</h3>
+      <p>
+        เกม 2D multiplayer tabletop turn-based action game ที่มีเนื้อหาและระบบการเล่นมาจาก Dungeons & Dragons (D&D)
+        สร้างด้วย Unity and NodeJS
+      </p>
     </main>
+    <Footer />
   </body>
 </html>
