@@ -5,7 +5,11 @@ type Props = {
 }
 
 const Banner: React.FC<Props> = ({ image }: Props): JSX.Element => {
-  return <img className={styles.banner} src={image} alt="banner" />
+  return (
+    <div className={styles.banner}>
+      <img src={image} alt="banner" />
+    </div>
+  )
 }
 
 export default Banner
